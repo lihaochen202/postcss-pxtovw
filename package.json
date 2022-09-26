@@ -1,0 +1,27 @@
+{
+  "name": "@lihaochen/postcss-pxtovw",
+  "description": "A CSS post-processor that converts px to vw.",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "vitest",
+    "build": "vite build"
+  },
+  "keywords": [
+    "css",
+    "pixel",
+    "px",
+    "viewport",
+    "vw",
+    "postcss",
+    "postcss-plugin"
+  ],
+  "devDependencies": {
+    "postcss": "^8.0.0",
+    "vite": "^3.1.3",
+    "vitest": "^0.23.4"
+  },
+  "peerDependencies": {
+    "postcss": "^8.0.0"
+  }
+}
