@@ -1,6 +1,6 @@
 import { mergeDefaultPluginOptions } from './options'
 import { createReplacer } from './value'
-import { extractPixels, isPassRegExps } from './regex'
+import { extractPixels, isPassRules } from './rules'
 import type { PluginCreator, Root, Declaration } from 'postcss'
 import type { PluginOptions } from './options'
 
@@ -21,8 +21,8 @@ const pluginCreator: PluginCreator<Partial<PluginOptions>> = (options = {}) => {
     Once(root: RootWithPluginProcess) {
       const file = root.source?.input.file || ''
 
-      if (isPassRegExps(opts.include, file)) root[pluginProcess] = true
-      if (isPassRegExps(opts.exclude, file)) root[pluginProcess] = false
+      if (isPassRules(opts.include, file)) root[pluginProcess] = true
+      if (isPassRules(opts.exclude, file)) root[pluginProcess] = false
     },
     Declaration(decl: DeclarationWithPluginProcess) {
       const root: RootWithPluginProcess = decl.root()
@@ -31,6 +31,9 @@ const pluginCreator: PluginCreator<Partial<PluginOptions>> = (options = {}) => {
       if (decl[pluginProcess]) return
 
       if (!decl.value.includes('px')) return
+
+      if (!isPassRules(opts.includeProps, decl.prop)) return
+      if (isPassRules(opts.excludeProps, decl.prop)) return
 
       const value = decl.value.replace(extractPixels, replacer)
 

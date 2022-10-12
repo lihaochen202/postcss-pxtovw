@@ -1,9 +1,13 @@
+import type { Rule } from './rules'
+
 export interface PluginOptions {
   viewportWidth: number
   unitPrecision: number
   minPixelValue: number
-  include: RegExp[]
-  exclude: RegExp[]
+  include: Rule[]
+  exclude: Rule[]
+  includeProps: Rule[]
+  excludeProps: Rule[]
 }
 
 export const defaultPluginOptions: PluginOptions = {
@@ -11,7 +15,9 @@ export const defaultPluginOptions: PluginOptions = {
   unitPrecision: 5,
   minPixelValue: 1,
   include: [/.*/],
-  exclude: []
+  exclude: [],
+  includeProps: [/.*/],
+  excludeProps: []
 }
 
 export function mergeDefaultPluginOptions(options: Partial<PluginOptions>): PluginOptions {

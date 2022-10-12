@@ -55,3 +55,21 @@ test('should ignore exculde file', async () => {
 
   expect(result.css).toEqual(output)
 })
+
+test('should handle inculde prop', async () => {
+  const input = `.rule { margin: 0 0 20px; padding: 0 0 20px; letter-spacing: 20px; font-size: 15px }`
+  const output = `.rule { margin: 0 0 5.33333vw; padding: 0 0 5.33333vw; letter-spacing: 5.33333vw; font-size: 15px }`
+
+  const result = await postcss(plugin({ includeProps: ['margin', /padding/, (prop: string) => prop.includes('spacing')] })).process(input, { from: 'example.css' })
+
+  expect(result.css).toEqual(output)
+})
+
+test('should ignore exculde prop', async () => {
+  const input = `.rule { margin: 0 0 20px; padding: 0 0 20px; letter-spacing: 20px; font-size: 15px }`
+  const output = `.rule { margin: 0 0 20px; padding: 0 0 20px; letter-spacing: 20px; font-size: 4vw }`
+
+  const result = await postcss(plugin({ excludeProps: ['margin', /padding/, (prop: string) => prop.includes('spacing')] })).process(input, { from: 'example.css' })
+
+  expect(result.css).toEqual(output)
+})
