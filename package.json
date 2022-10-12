@@ -1,7 +1,7 @@
 {
   "name": "@lihaochen/postcss-pxtovw",
   "description": "A CSS post-processor that converts px to vw.",
-  "version": "1.0.0-rc",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
     "dev": "vitest",
