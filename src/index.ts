@@ -1,7 +1,7 @@
 import { mergeDefaultPluginOptions } from './options'
 import { createReplacer } from './value'
 import { extractPixels, isPassRules } from './rules'
-import type { PluginCreator, Root, Declaration } from 'postcss'
+import type { PluginCreator, Root, Declaration, Rule } from 'postcss'
 import type { PluginOptions } from './options'
 
 const pluginProcess = Symbol('PROCESS')
@@ -10,7 +10,10 @@ interface PluginProcess {
 }
 
 type RootWithPluginProcess = Root & PluginProcess
+type RuleWithPluginProcess = Rule & PluginProcess
 type DeclarationWithPluginProcess = Declaration & PluginProcess
+
+export const ignoreComment = 'pxtovw-ignore'
 
 const pluginCreator: PluginCreator<Partial<PluginOptions>> = (options = {}) => {
   const opts = mergeDefaultPluginOptions(options)
@@ -24,9 +27,32 @@ const pluginCreator: PluginCreator<Partial<PluginOptions>> = (options = {}) => {
       if (isPassRules(opts.include, file)) root[pluginProcess] = true
       if (isPassRules(opts.exclude, file)) root[pluginProcess] = false
     },
-    Rule(rule) {
+    Comment(comment) {
+      if (comment.text !== ignoreComment) return
+
+      const next = comment.next()
+      if (next?.type === 'rule') {
+        ;(next as RuleWithPluginProcess)[pluginProcess] = true
+        return
+      }
+      if (next?.type === 'decl') {
+        ;(next as DeclarationWithPluginProcess)[pluginProcess] = true
+      }
+    },
+    Rule(rule: RuleWithPluginProcess) {
       const signPluginProcess = (decl: DeclarationWithPluginProcess) => {
         decl[pluginProcess] = true
+      }
+
+      const root: RootWithPluginProcess = rule.root()
+      if (!root[pluginProcess]) {
+        rule.walkDecls(signPluginProcess)
+        return
+      }
+
+      if (rule[pluginProcess]) {
+        rule.walkDecls(signPluginProcess)
+        return
       }
 
       if (!isPassRules(opts.includeSelectors, rule.selector)) {
@@ -39,9 +65,6 @@ const pluginCreator: PluginCreator<Partial<PluginOptions>> = (options = {}) => {
       }
     },
     Declaration(decl: DeclarationWithPluginProcess) {
-      const root: RootWithPluginProcess = decl.root()
-      if (!root[pluginProcess]) return
-
       if (decl[pluginProcess]) return
 
       if (!decl.value.includes('px')) return

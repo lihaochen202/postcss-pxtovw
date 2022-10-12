@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest'
 import postcss from 'postcss'
-import plugin from '.'
+import plugin, { ignoreComment } from '.'
 
 test('should work on the readme example', async () => {
   const input = `h1 { margin: 0 0 20px; font-size: 32px; line-height: 1.2; letter-spacing: 1px; }`
@@ -88,6 +88,24 @@ test('should ignore exculde selector', async () => {
   const output = `.string { font-size: 15px } .regexp { font-size: 15px } .function { font-size: 15px } .normal { font-size: 4vw }`
 
   const result = await postcss(plugin({ excludeSelectors: ['string', /regexp/, (prop: string) => prop.includes('func')] })).process(input, { from: 'example.css' })
+
+  expect(result.css).toEqual(output)
+})
+
+test('should ignore comment selector', async () => {
+  const input = `/* ${ignoreComment} */ .rule { font-size: 15px; letter-spacing: 20px } .rule { font-size: 15px; /* ${ignoreComment} */ letter-spacing: 20px }`
+  const output = `/* ${ignoreComment} */ .rule { font-size: 15px; letter-spacing: 20px } .rule { font-size: 4vw; /* ${ignoreComment} */ letter-spacing: 20px }`
+
+  const result = await postcss(plugin()).process(input, { from: 'example.css' })
+
+  expect(result.css).toEqual(output)
+})
+
+test('should ignore comment properies', async () => {
+  const input = `.rule { font-size: 15px; /* ${ignoreComment} */ letter-spacing: 20px }`
+  const output = `.rule { font-size: 4vw; /* ${ignoreComment} */ letter-spacing: 20px }`
+
+  const result = await postcss(plugin()).process(input, { from: 'example.css' })
 
   expect(result.css).toEqual(output)
 })
