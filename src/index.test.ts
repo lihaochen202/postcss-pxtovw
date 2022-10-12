@@ -73,3 +73,21 @@ test('should ignore exculde prop', async () => {
 
   expect(result.css).toEqual(output)
 })
+
+test('should handle inculde selector', async () => {
+  const input = `.string { font-size: 15px } .regexp { font-size: 15px } .function { font-size: 15px } .normal { font-size: 15px }`
+  const output = `.string { font-size: 4vw } .regexp { font-size: 4vw } .function { font-size: 4vw } .normal { font-size: 15px }`
+
+  const result = await postcss(plugin({ includeSelectors: ['string', /regexp/, (prop: string) => prop.includes('func')] })).process(input, { from: 'example.css' })
+
+  expect(result.css).toEqual(output)
+})
+
+test('should ignore exculde selector', async () => {
+  const input = `.string { font-size: 15px } .regexp { font-size: 15px } .function { font-size: 15px } .normal { font-size: 15px }`
+  const output = `.string { font-size: 15px } .regexp { font-size: 15px } .function { font-size: 15px } .normal { font-size: 4vw }`
+
+  const result = await postcss(plugin({ excludeSelectors: ['string', /regexp/, (prop: string) => prop.includes('func')] })).process(input, { from: 'example.css' })
+
+  expect(result.css).toEqual(output)
+})

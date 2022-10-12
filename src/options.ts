@@ -8,6 +8,8 @@ export interface PluginOptions {
   exclude: Rule[]
   includeProps: Rule[]
   excludeProps: Rule[]
+  includeSelectors: Rule[]
+  excludeSelectors: Rule[]
 }
 
 export const defaultPluginOptions: PluginOptions = {
@@ -17,7 +19,9 @@ export const defaultPluginOptions: PluginOptions = {
   include: [/.*/],
   exclude: [],
   includeProps: [/.*/],
-  excludeProps: []
+  excludeProps: [],
+  includeSelectors: [/.*/],
+  excludeSelectors: []
 }
 
 export function mergeDefaultPluginOptions(options: Partial<PluginOptions>): PluginOptions {

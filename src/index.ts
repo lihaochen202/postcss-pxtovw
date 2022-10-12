@@ -24,6 +24,20 @@ const pluginCreator: PluginCreator<Partial<PluginOptions>> = (options = {}) => {
       if (isPassRules(opts.include, file)) root[pluginProcess] = true
       if (isPassRules(opts.exclude, file)) root[pluginProcess] = false
     },
+    Rule(rule) {
+      const signPluginProcess = (decl: DeclarationWithPluginProcess) => {
+        decl[pluginProcess] = true
+      }
+
+      if (!isPassRules(opts.includeSelectors, rule.selector)) {
+        rule.walkDecls(signPluginProcess)
+        return
+      }
+
+      if (isPassRules(opts.excludeSelectors, rule.selector)) {
+        rule.walkDecls(signPluginProcess)
+      }
+    },
     Declaration(decl: DeclarationWithPluginProcess) {
       const root: RootWithPluginProcess = decl.root()
       if (!root[pluginProcess]) return
