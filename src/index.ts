@@ -1,7 +1,7 @@
 import { mergeDefaultPluginOptions } from './options'
 import { createReplacer } from './value'
 import { extractPixels, isPassRules } from './rules'
-import type { PluginCreator, Root, Declaration, Rule } from 'postcss'
+import { PluginCreator, Root, Declaration, Rule, AtRule, decl } from 'postcss'
 import type { PluginOptions } from './options'
 
 const pluginProcess = Symbol('PROCESS')
@@ -12,6 +12,7 @@ interface PluginProcess {
 type RootWithPluginProcess = Root & PluginProcess
 type RuleWithPluginProcess = Rule & PluginProcess
 type DeclarationWithPluginProcess = Declaration & PluginProcess
+type AtRuleWithPluginProcess = AtRule & PluginProcess
 
 export const ignoreComment = 'pxtovw-ignore'
 
@@ -76,6 +77,21 @@ const pluginCreator: PluginCreator<Partial<PluginOptions>> = (options = {}) => {
 
       decl.value = value
       decl[pluginProcess] = true
+    },
+    AtRule(atRule: AtRuleWithPluginProcess) {
+      if (!opts.mediaQuery || atRule.name !== 'media') return
+
+      const root: RootWithPluginProcess = atRule.root()
+      if (!root[pluginProcess]) return
+
+      if (atRule[pluginProcess]) return
+
+      if (!atRule.params.includes('px')) return
+
+      const params = atRule.params.replace(extractPixels, replacer)
+
+      atRule.params = params
+      atRule[pluginProcess] = true
     }
   }
 }

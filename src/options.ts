@@ -10,6 +10,7 @@ export interface PluginOptions {
   excludeProps: Rule[]
   includeSelectors: Rule[]
   excludeSelectors: Rule[]
+  mediaQuery: boolean
 }
 
 export const defaultPluginOptions: PluginOptions = {
@@ -21,7 +22,8 @@ export const defaultPluginOptions: PluginOptions = {
   includeProps: [/.*/],
   excludeProps: [],
   includeSelectors: [/.*/],
-  excludeSelectors: []
+  excludeSelectors: [],
+  mediaQuery: false
 }
 
 export function mergeDefaultPluginOptions(options: Partial<PluginOptions>): PluginOptions {

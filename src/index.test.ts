@@ -109,3 +109,12 @@ test('should ignore comment properies', async () => {
 
   expect(result.css).toEqual(output)
 })
+
+test('should handle media queries', async () => {
+  const input = `@media (width: 20px) { .rule { font-size: 15px } }`
+  const output = `@media (width: 5.33333vw) { .rule { font-size: 4vw } }`
+
+  const result = await postcss(plugin({ mediaQuery: true })).process(input, { from: 'example.css' })
+
+  expect(result.css).toEqual(output)
+})
