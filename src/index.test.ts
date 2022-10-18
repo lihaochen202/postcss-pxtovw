@@ -1,6 +1,7 @@
 import { test, expect } from 'vitest'
 import postcss from 'postcss'
-import plugin, { ignoreComment } from '.'
+import plugin from '.'
+import { ignoreComment } from './comment'
 
 test('should work on the readme example', async () => {
   const input = `h1 { margin: 0 0 20px; font-size: 32px; line-height: 1.2; letter-spacing: 1px; }`

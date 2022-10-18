@@ -1,7 +1,8 @@
 import { mergeDefaultPluginOptions } from './options'
 import { createReplacer } from './value'
 import { extractPixels, isPassRules } from './rules'
-import { PluginCreator, Root, Declaration, Rule, AtRule, decl } from 'postcss'
+import { ignoreComment } from './comment'
+import type { PluginCreator, Root, Declaration, Rule, AtRule } from 'postcss'
 import type { PluginOptions } from './options'
 
 const pluginProcess = Symbol('PROCESS')
@@ -13,8 +14,6 @@ type RootWithPluginProcess = Root & PluginProcess
 type RuleWithPluginProcess = Rule & PluginProcess
 type DeclarationWithPluginProcess = Declaration & PluginProcess
 type AtRuleWithPluginProcess = AtRule & PluginProcess
-
-const ignoreComment = 'pxtovw-ignore'
 
 const pluginCreator: PluginCreator<Partial<PluginOptions>> = (options = {}) => {
   const opts = mergeDefaultPluginOptions(options)
