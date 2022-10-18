@@ -2,6 +2,7 @@
   "name": "@lihaochen/postcss-pxtovw",
   "description": "A CSS post-processor that converts px to vw.",
   "version": "1.0.1",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git@github.com:lihaochen202/postcss-pxtovw.git"
