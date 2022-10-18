@@ -14,7 +14,7 @@ type RuleWithPluginProcess = Rule & PluginProcess
 type DeclarationWithPluginProcess = Declaration & PluginProcess
 type AtRuleWithPluginProcess = AtRule & PluginProcess
 
-export const ignoreComment = 'pxtovw-ignore'
+const ignoreComment = 'pxtovw-ignore'
 
 const pluginCreator: PluginCreator<Partial<PluginOptions>> = (options = {}) => {
   const opts = mergeDefaultPluginOptions(options)
