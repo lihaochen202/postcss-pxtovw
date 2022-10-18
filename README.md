@@ -156,3 +156,10 @@ module.exports = {
   font-size: 15px;
 }
 ```
+
+# Thanks
+
+- [postcss-pxtorem](https://github.com/cuth/postcss-pxtorem)
+- [postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport)
+- [vite](https://github.com/vitejs/vite)
+- [vitest](https://github.com/vitest-dev/vitest)
