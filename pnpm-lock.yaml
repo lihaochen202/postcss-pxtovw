@@ -4,12 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
+devDependencies:
   '@lihaochen/kite':
     specifier: ^0.2.0
     version: 0.2.0
-
-devDependencies:
   bumpp:
     specifier: ^9.1.1
     version: 9.1.1
@@ -57,11 +55,11 @@ packages:
     resolution: {integrity: sha512-PZaWr6QcYr7CTt5I8jP3jcK1SgxuE8brcQ4hKbCag8SvlFgET8/BI6vJOiytIkUu0lQh35jFjomK3Y9cy++nAw==}
     dependencies:
       '@lihaochen/func': 0.2.0
-    dev: false
+    dev: true
 
   /@lihaochen/func@0.2.0:
     resolution: {integrity: sha512-uAU3usvvXHmLG2zzM81PBaTBP1wYL5h/Rn1nLWnEmNu4eeZrv/VCh6w4L6oV/e23Y8VcbXNiVOaaUMLzXOR//Q==}
-    dev: false
+    dev: true
 
   /@lihaochen/kite@0.2.0:
     resolution: {integrity: sha512-DXobJUCeLKF2uGpV3fAP3lLZQI7sDBFHc7q0pSvFrJyF0pcRLofHJJlbF32InBiH5lPy1+3jtKYw3qHvX8tdmA==}
@@ -69,11 +67,11 @@ packages:
       '@lihaochen/easing': 0.2.0
       '@lihaochen/func': 0.2.0
       '@lihaochen/species': 0.2.0
-    dev: false
+    dev: true
 
   /@lihaochen/species@0.2.0:
     resolution: {integrity: sha512-9YULdRiCyJ2LIBA00bvhGC0r+fnhVqEPlW26ecvDMRgkvULRGxl+CELl/WkdC4fkid4C12WbDCRuH92CdmxEbA==}
-    dev: false
+    dev: true
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
