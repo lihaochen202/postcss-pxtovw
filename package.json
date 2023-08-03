@@ -1,7 +1,7 @@
 {
   "name": "@lihaochen/postcss-pxtovw",
   "description": "A CSS post-processor that converts px to vw.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,7 +11,8 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "vitest",
-    "build": "vite build"
+    "build": "vite build",
+    "release": "bumpp --commit 'release: v'"
   },
   "keywords": [
     "css",
@@ -23,6 +24,7 @@
     "postcss-plugin"
   ],
   "devDependencies": {
+    "bumpp": "^9.1.1",
     "postcss": "^8.0.0",
     "vite": "^3.1.3",
     "vitest": "^0.23.4"
