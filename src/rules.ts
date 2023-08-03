@@ -1,9 +1,6 @@
-export const extractPixels = /"[^"]+"|'[^']+'|url\([^)]+\)|var\([^)]+\)|(\d*\.?\d+)px/g
+import { isString, isRegExp, isFunction } from "@lihaochen/kite";
 
-export const toObjectString = (value: unknown) => Object.prototype.toString.call(value)
-export const isString = (value: unknown): value is string => toObjectString(value) === '[object String]'
-export const isRegExp = (value: unknown): value is RegExp => toObjectString(value) === '[object RegExp]'
-export const isFunction = (value: unknown): value is Function => toObjectString(value) === '[object Function]'
+export const extractPixels = /"[^"]+"|'[^']+'|url\([^)]+\)|var\([^)]+\)|(\d*\.?\d+)px/g
 
 export type Rule = string | RegExp | Function
 

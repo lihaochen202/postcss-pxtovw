@@ -29,5 +29,8 @@
   },
   "peerDependencies": {
     "postcss": "^8.0.0"
+  },
+  "dependencies": {
+    "@lihaochen/kite": "^0.2.0"
   }
 }
