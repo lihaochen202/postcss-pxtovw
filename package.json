@@ -2,7 +2,7 @@
   "packageManager": "pnpm@8.6.6",
   "name": "@lihaochen/postcss-pxtovw",
   "description": "A CSS post-processor that converts px to vw.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "repository": {
     "type": "git",
