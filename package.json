@@ -1,4 +1,5 @@
 {
+  "packageManager": "pnpm@8.6.6",
   "name": "@lihaochen/postcss-pxtovw",
   "description": "A CSS post-processor that converts px to vw.",
   "version": "1.0.4",
